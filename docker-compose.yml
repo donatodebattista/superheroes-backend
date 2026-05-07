@@ -6,6 +6,9 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
 
   backend:
     build: .
@@ -13,8 +16,8 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - PORT=3000
-      - MONGO_URI=mongodb://mongodb:27017/superheroes
+      - PORT=${PORT}
+      - MONGO_URI=mongodb://${MONGO_USER}:${MONGO_PASS}@mongodb:27017/${MONGO_DB}?authSource=admin
     depends_on:
       - mongodb
 

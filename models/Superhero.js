@@ -31,8 +31,7 @@ const superheroSchema = new mongoose.Schema({
     },
     imagenes: {
         type: [String],
-        required: true,
-        validate: [v => v.length > 0, 'El array de imágenes no puede estar vacío']
+        required: true
     }
 });
 
