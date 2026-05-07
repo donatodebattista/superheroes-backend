@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import "dotenv/config"
+import superheroRoutes from './routes/superheroRoutes.js'
 
 const app = express()
 
@@ -14,10 +15,9 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('🟢 Conectado exitosamente a MongoDB'))
     .catch(err => console.error('🔴 Error al conectar a MongoDB:', err));
 
-// Ruta base de prueba
-app.get('/', (req, res) => {
-    res.send('API de Superhéroes funcionando correctamente');
-});
+
+// Rutas
+app.use('/api/superheroes', superheroRoutes);
 
 // Arrancar el servidor
 const PORT = process.env.PORT || 3000;
