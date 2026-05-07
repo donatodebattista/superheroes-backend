@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const superheroSchema = new mongoose.Schema({
     nombre: {
@@ -36,4 +36,4 @@ const superheroSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Superhero', superheroSchema);
+export default mongoose.model('Superhero', superheroSchema);
