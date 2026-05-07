@@ -91,12 +91,13 @@ const seedDB = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("Conectado a la DB para sembrar datos...");
 
-        // Limpia la colección para no duplicar si ejecutas el script varias veces
-        await Superhero.deleteMany({});
-        console.log("Base de datos limpiada.");
-
-        await Superhero.insertMany(heroes);
-        console.log("¡40 Superhéroes cargados exitosamente!");
+        const count = await Superhero.countDocuments();
+        if (count === 0) {
+            await Superhero.insertMany(heroes);
+            console.log("¡40 Superhéroes cargados exitosamente!");
+        } else {
+            console.log(`La base de datos ya contiene ${count} superhéroes. Omitiendo sembrado.`);
+        }
 
         process.exit();
     } catch (err) {
